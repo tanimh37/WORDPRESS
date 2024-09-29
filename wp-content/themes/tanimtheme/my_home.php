@@ -66,9 +66,23 @@
 		<div class="slider">
 			<div class="rslides_container">
 				<ul class="rslides" id="slider">
-					<li><img src="<?php echo get_template_directory_uri() ?>/images/slide1.png"/></li>
-					<li><img src="<?php echo get_template_directory_uri() ?>/images/slide2.png"/></li>
-					<li><img src="<?php echo get_template_directory_uri() ?>/images/slide3.png"/></li>
+				<?php
+				$query = new WP_Query(array('post_type' => 'tanim_slider',) );
+				if($query->have_posts()):
+				while($query->have_posts()):	
+					$query->the_post(  );?>
+
+					<li><?php the_post_thumbnail() ?></li>
+
+
+				<?php
+				endwhile;
+				endif;
+				
+				?>
+
+				
+
 				</ul>
 			</div>
 		</div>
@@ -105,62 +119,36 @@
 			<div class="col-2-3">
 				<div class="wrap-col">
 					<div class="heading"><h2>Latest Blog</h2></div>
+
+					<?php
+				$query = new WP_Query(array('post_type' => 'post', 'posts_per_page'=> 5 , ) );
+				if($query->have_posts()):
+				while($query->have_posts()):	
+					$query->the_post(  );?>
+
+
+
 					<article class="row">
 						<div class="col-1-3">
 							<div class="wrap-col">
-								<img src="<?php echo get_template_directory_uri() ?>/images/img1.png"/>
+							<?php the_post_thumbnail(); ?>
 							</div>
 						</div>
 						<div class="col-2-3">
 							<div class="wrap-col">
-								<h2><a href="#">Dreaming With Us All Night</a></h2>
-								<div class="info">By Admin on December 01, 2012 with <a href="#">01 Commnets</a></div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra convallis auctor [...]</p>
+							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+						<div class="info">[By <?php the_author()?> on <?php the_date('F d, Y') ?>with<a href="#">01 Commnets</a>]</div>
+                        <p><?php the_excerpt(); ?></p>
 							</div>
 						</div>
 					</article>
-					<article class="row">
-						<div class="col-1-3">
-							<div class="wrap-col">
-								<img src="<?php echo get_template_directory_uri() ?>/images/img2.png"/>
-							</div>
-						</div>
-						<div class="col-2-3">
-							<div class="wrap-col">
-								<h2><a href="#">Welcome To Our Great Site</a></h2>
-								<div class="info">By Admin on December 01, 2012 with <a href="#">01 Commnets</a></div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra convallis auctor [...]</p>
-							</div>
-						</div>
-					</article>
-					<article class="row">
-						<div class="col-1-3">
-							<div class="wrap-col">
-								<img src="<?php echo get_template_directory_uri() ?>/images/img3.png"/>
-							</div>
-						</div>
-						<div class="col-2-3">
-							<div class="wrap-col">
-								<h2><a href="#">Stereosonic Is Back Just For You</a></h2>
-								<div class="info">By Admin on December 01, 2012 with <a href="#">01 Commnets</a></div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra convallis auctor [...]</p>
-							</div>
-						</div>
-					</article>
-					<article class="row">
-						<div class="col-1-3">
-							<div class="wrap-col">
-								<img src="<?php echo get_template_directory_uri() ?>/images/img4.png"/>
-							</div>
-						</div>
-						<div class="col-2-3">
-							<div class="wrap-col">
-								<h2><a href="#">Club Galaxy White Night Show</a></h2>
-								<div class="info">By Admin on December 01, 2012 with <a href="#">01 Commnets</a></div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra convallis auctor [...]</p>
-							</div>
-						</div>
-					</article>
+
+				<?php
+				endwhile;
+				endif;
+				
+				?>
+
 				</div>
 			</div>
 			<?php get_sidebar() ?>
